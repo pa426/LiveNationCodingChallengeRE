@@ -49,6 +49,13 @@ namespace LiveNationCodingChallenge.Tests
         }
 
         [TestMethod()]
+        public void CheckForErorrsTest6()//Check for max Int32 values
+        {
+            var check = Program.CheckForErorrs("-2147483648,2147483647");
+            Assert.AreEqual(true, check);
+        }
+
+        [TestMethod()]
         public void ReverseArrayValuesTest1()//Check for valid input
         {
             int[] testArr = new[] {0, 15};

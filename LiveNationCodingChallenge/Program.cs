@@ -14,14 +14,7 @@ namespace LiveNationCodingChallenge
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("*****************************************************************************");
-            Console.WriteLine("***                                                                       ***");
-            Console.WriteLine("***                          FizzBuzz v0.1                                ***");
-            Console.WriteLine("***                                                                       ***");
-            Console.WriteLine("***   Please insert a number range separated by comma and press ENTER,    ***");
-            Console.WriteLine("***                     or 'q' and ENTER to quit.                         ***");
-            Console.WriteLine("***                                                                       ***");
-            Console.WriteLine("*****************************************************************************");
+            WelcomeNote();
 
             string choice = "";
 
@@ -42,6 +35,18 @@ namespace LiveNationCodingChallenge
             }
 
             Environment.Exit(0);
+        }
+
+        public static void WelcomeNote()
+        {
+            Console.WriteLine("*****************************************************************************");
+            Console.WriteLine("***                                                                       ***");
+            Console.WriteLine("***                          FizzBuzz v0.1                                ***");
+            Console.WriteLine("***                                                                       ***");
+            Console.WriteLine("***   Please insert a number range separated by comma and press ENTER,    ***");
+            Console.WriteLine("***                     or 'q' and ENTER to quit.                         ***");
+            Console.WriteLine("***                                                                       ***");
+            Console.WriteLine("*****************************************************************************");
         }
 
         public static bool CheckForErorrs(string choice)
@@ -81,6 +86,12 @@ namespace LiveNationCodingChallenge
             int buzzCount = 0;
             int fizzBuzzCount = 0;
             int intCount = 0;
+
+            if (numberRange[1]-numberRange[0] > 50000)
+            {
+                Console.WriteLine("\n Have a sit this may take a while. :D");
+
+            }
 
             for (int i = numberRange[0]; i <= numberRange[1]; i++)
             {
