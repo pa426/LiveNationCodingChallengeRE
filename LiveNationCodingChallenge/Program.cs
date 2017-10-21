@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace LiveNationCodingChallenge
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static int[] numberRange;
+        public static void Main(string[] args)
         {
 
             Console.WriteLine("Please insert a number range separated by comma and press ENTER or 'q' to quit.");
@@ -21,48 +22,85 @@ namespace LiveNationCodingChallenge
                 choice = Console.ReadLine();
                 Console.Clear();
 
-                try
+                if (CheckForErorrs(choice))
                 {
-                    int[] numberRange = choice.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+                    var result = CheckNumbers(numberRange);
 
-                    if (numberRange.Length != 2)
-                    {
-                        throw new Exception("");
-                    }
+                    Console.WriteLine("\n" + result);
 
-                    for (int i = numberRange[0]; i <= numberRange[1]; i++)
-                    {
-                        if ((i % 5 == 0) && (i % 3 == 0))
-                        {
-                            Console.Write("fizzbuzz ");
-                        }
-                        else
-                        {
-                            if ((i % 3) == 0)
-                            {
-                                Console.Write("fizz ");
-                            }
-                            if ((i % 5) == 0)
-                            {
-                                Console.Write("buzz ");
-                            }
-                            if ((i % 3 != 0) && (i % 5 != 0))
-                            {
-                                Console.Write(i + " ");
-                            }
-                        }
-
-                    }
-
-                    Console.WriteLine("\nPlease insert a new number range separated by comma and press ENTER or 'q' to quit.");
+                    Console.WriteLine(
+                        "\nPlease insert a new number range separated by comma and press ENTER or 'q' to quit.");
                 }
-                catch
-                {
-                    Console.Error.WriteLine("Please insert a valid range.");
-                }
+                
             }
 
             Environment.Exit(0);
         }
+
+        public static bool CheckForErorrs(string choice)
+        {
+            bool check = true;
+            string errorHandling = "";
+
+            try
+            {
+                numberRange = choice.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+                if (numberRange.Length != 2)
+                {
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                check = false;
+                errorHandling = "Please insert a valid range.";
+            }
+
+            if (errorHandling != "")
+            {
+                Console.Error.WriteLine(errorHandling);
+            }
+            
+            return check;
+
+        }
+
+        public static string CheckNumbers(int[] numberRange)
+        {
+
+            if (numberRange[0] > numberRange[1])
+            {
+                var temp = numberRange[0];
+                numberRange[0] = numberRange[1];
+                numberRange[1] = temp;
+            }
+
+            string result = "";
+
+            for (int i = numberRange[0]; i <= numberRange[1]; i++)
+            {
+                if ((i % 5 == 0) && (i % 3 == 0))
+                {
+                    result += "fizzbuzz ";
+                }
+                else
+                {
+                    if ((i % 3) == 0)
+                    {
+                        result += "fizz ";
+                    }
+                    if ((i % 5) == 0)
+                    {
+                        result += "buzz ";
+                    }
+                    if ((i % 3 != 0) && (i % 5 != 0))
+                    {
+                        result += i + " ";
+                    }
+                }
+            }
+            return result;
+        }
+
     }
 }
