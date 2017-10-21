@@ -4,16 +4,24 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 namespace LiveNationCodingChallenge
 {
     public class Program
     {
         private static int[] numberRange;
+
         public static void Main(string[] args)
         {
-
-            Console.WriteLine("Please insert a number range separated by comma and press ENTER or 'q' to quit.");
+            Console.WriteLine("*****************************************************************************");
+            Console.WriteLine("***                                                                       ***");
+            Console.WriteLine("***                          FizzBuzz v0.1                                ***");
+            Console.WriteLine("***                                                                       ***");
+            Console.WriteLine("***   Please insert a number range separated by comma and press ENTER,    ***");
+            Console.WriteLine("***                     or 'q' and ENTER to quit.                         ***");
+            Console.WriteLine("***                                                                       ***");
+            Console.WriteLine("*****************************************************************************");
 
             string choice = "";
 
@@ -29,9 +37,8 @@ namespace LiveNationCodingChallenge
                     Console.WriteLine("\n" + result);
 
                     Console.WriteLine(
-                        "\nPlease insert a new number range separated by comma and press ENTER or 'q' to quit.");
+                        "\nPlease insert a new number range separated by comma and press ENTER or 'q' and ENTER to quit.");
                 }
-                
             }
 
             Environment.Exit(0);
@@ -60,47 +67,57 @@ namespace LiveNationCodingChallenge
             {
                 Console.Error.WriteLine(errorHandling);
             }
-            
-            return check;
 
+            return check;
         }
 
         public static string CheckNumbers(int[] numberRange)
         {
+            ReverseArrayValues(numberRange);
 
-            if (numberRange[0] > numberRange[1])
-            {
-                var temp = numberRange[0];
-                numberRange[0] = numberRange[1];
-                numberRange[1] = temp;
-            }
-
-            string result = "";
+            string result = "result: ";
+            string summary = "summary: ";
+            int fizzCount = 0;
+            int buzzCount = 0;
+            int fizzBuzzCount = 0;
+            int intCount = 0;
 
             for (int i = numberRange[0]; i <= numberRange[1]; i++)
             {
                 if ((i % 5 == 0) && (i % 3 == 0))
                 {
+                    fizzBuzzCount++;
                     result += "fizzbuzz ";
                 }
                 else
                 {
                     if ((i % 3) == 0)
                     {
+                        fizzCount++;
                         result += "fizz ";
                     }
                     if ((i % 5) == 0)
                     {
+                        buzzCount++;
                         result += "buzz ";
                     }
                     if ((i % 3 != 0) && (i % 5 != 0))
                     {
+                        intCount++;
                         result += i + " ";
                     }
                 }
             }
-            return result;
+
+            summary += "fizz:"+fizzCount+", buzz:"+buzzCount+", fizzbuzz:"+fizzBuzzCount+", integer:" + intCount;
+
+            return result + "\n" + summary;
         }
 
+        public static int[] ReverseArrayValues(int[] numberRange)
+        {
+            Array.Sort(numberRange);
+            return numberRange;
+        }
     }
 }
